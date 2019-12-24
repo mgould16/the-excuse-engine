@@ -1,0 +1,45 @@
+<div class="parent-center container" style="background-image: url('<%= asset_url 'bgnodog.png' %>'); background-position: bottom; background-size: cover; width: 100vw; height: 92.25vh;justify-content: center;">
+    <h5 class="text-center mb-5">excuse found</h5>
+    <% if  @location_excuse.transport_mode == "bus" %>
+      <i class="fas fa-bus"></i>
+    <% elsif @location_excuse.transport_mode == "road" %>
+      <i class="fas fa-road"></i>
+    <% elsif @location_excuse.transport_mode == "tube" %>
+      <i class="fas fa-subway"></i>
+    <% end %>
+    <% if @location_excuse.transport_mode == "road" %>
+    <h2 class="mt-3 text-center"><%= @location_excuse.lines_disrupted %></h2>
+    <% else %>
+    <h2 class="mt-3 text-center">The <%= @location_excuse.lines_disrupted %> <%= @location_excuse.transport_mode %> has disruptions</h2>
+    <% end %>
+    <p class="mt-3 text-center"><%= @location_excuse.disruption_message&.split(" ").first(30).join(" ") %>...</p>
+    <%= link_to "MORE DETAILS", location_excuse_details_path(@location_excuse), class: "btn" %>
+  <% if @location_excuse.id != @last_excuse.id %>
+    <%= link_to "Need another excuse?", location_excuse_path(LocationExcuse.find(@location_excuse.id + 1)), class: "link mt-3" %>
+    <% else %>
+    <%= link_to "Try a creative excuse", root_path, class: "link mt-3" %>
+  <% end %>
+
+
+  <% saved_excuse = SavedExcuse.find_by(user: current_user, excuse: @location_excuse) %>
+
+  <div id="save-excuse-link" style="margin-top: 16px; text-align: center;">
+    <% if current_user.nil? %>
+      <%= link_to user_session_path do %>
+        <i id="heart" class="far fa-heart fa-3x" style="color: #FFBA34;"></i>
+      <% end %>
+    <% else %>
+      <% if saved_excuse %>
+        <%= link_to saved_excuse_path(saved_excuse), method: :delete, remote: true do %>
+          <i id="heart" class="fas fa-heart fa-3x" style="color: #FFBA34;"></i>
+        <% end %>
+      <% else %>
+        <%= link_to location_excuse_saved_excuses_path(@location_excuse), method: :post, remote: true do %>
+          <i id="heart" class="far fa-heart fa-3x" style="color: #FFBA34;"></i>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+
+</div>

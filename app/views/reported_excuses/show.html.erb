@@ -1,0 +1,45 @@
+<div class="fixed-background-img">
+  <%= image_tag 'bgnodog.png' %>
+</div>
+<div id="pagepiling">
+  <div class="section sec-1">
+    <div class="details-page" style="align-items: center; justify-content: center;">
+      <h2 style="text-align: center;"><%= @reported_excuse.title %></h2>
+      <div
+        id="map"
+        style="width: 100%;
+        height: 300px;"
+        data-markers="<%= @markers.to_json %>"
+      ></div>
+     <div id="toggle-buttons">
+        <span id="traffic" class="map-btn map-btn-first">Traffic Overlay</span><span id="transit" class="map-btn">Transit Overlay</span>
+      </div>
+    <div class="mt-3 width-90">
+      <p><%= @reported_excuse.description %><p>
+    </div>
+    <div class="d-flex align-items-center"><%= link_to '<i class="far fa-thumbs-up" style="font-size: 36px;"></i>'.html_safe, reported_excuse_upvote_path(@reported_excuse), method: :put, remote: true, class: "link mr-2" %>
+      <span class="text-warninreported-excuse-vg mr-2" id="reported-excuse-votes"><%= (@reported_excuse.votes) %></span>
+    <%= link_to '<i class="far fa-thumbs-down" style="font-size: 36px;"></i>'.html_safe, reported_excuse_downvote_path(@reported_excuse), method: :put, remote: true, class: "link mt-4" %>
+  </div>
+    <%= link_to reported_excuses_path, class: "link m-3 big" do %>
+    <i class="fas fa-long-arrow-alt-left" style="font-size: 24px;"></i>
+  <% end %>
+    </div>
+  </div>
+  <div class="section sec-2 hidden">
+    <div class="details-page"  style="align-items: center; justify-content: center;">
+      <div class="width-90">
+        <p style="color:#FFBA34;">EXCUSE MESSAGE</p>
+        <div class ="p-3 d-flex justify-content-between" style="color:#575757; background-color:#F4F4F4;" contenteditable="true">
+          I’m sorry, I’m running late.
+          <%= @reported_excuse.description %>. This has affected my route.
+          <div style="background-color: #9CF0F5; padding: 6px 8px; padding-bottom: 2px; border-radius: 50%; height: 34px; width: 34px; object-fit: cover;" contenteditable="false">
+            <i class="far fa-copy" style="font-size: 23px; color: white;"></i>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+
+  </div>
+</div>
