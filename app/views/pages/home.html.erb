@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div style="background-image: url('<%= asset_url 'eebackground.png' %>'); background-position: bottom; background-size: cover; width: 100vw; height: 92.25vh;">
+  <div class="parent-center" style="justify-content: space-between;">
+      <%= image_tag "logo.png", alt: "EE logo", class: "logo" %>
+    <div class="header">
+      <h4>THE</h4>
+      <h1>EXCUSE</h1>
+      <h3>ENGINE</h3>
+    </div>
+    <p class="light">Specialists in <span class="bold">location-based</span> excuses</p>
+    <div class="excuse-button">
+      <%= link_to "FIND AN EXCUSE", new_location_excuse_path, class: "btn"%>
+    </div>
+    <p class="mb-2">Or...</p>
+      <%= link_to "Find a creative excuse (need to change path as to original)", creative_excuses_path, class: "link mb-5"%>
+  </div>
+</div>
